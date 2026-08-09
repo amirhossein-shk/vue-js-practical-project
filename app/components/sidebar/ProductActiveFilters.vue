@@ -61,11 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  defaultProductFilters,
-  type ProductFilters,
-  type ProductSort,
-} from '~~/types/product-filters.ts';
+import type { ProductFilters, ProductSort } from '~~/types/product-filters.ts';
 
 type ActiveFilterItem = {
   key: string;
