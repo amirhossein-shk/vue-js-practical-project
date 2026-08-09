@@ -1,75 +1,56 @@
-# Nuxt Minimal Starter
+# FakeStore - Nuxt 4 Product Listing
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A responsive product listing app built with `Nuxt 4`, `TypeScript`, and `Tailwind CSS` using the `FakeStore API`.
 
-## Setup
+## Features
 
-Make sure to install dependencies:
+- Product listing page
+- Product details page
+- Search products
+- Filter by category
+- Sort products
+- Responsive layout
+- RTL support
+- Error and loading states
+
+## Tech Stack
+
+- `Nuxt 4`
+- `Vue 3`
+- `TypeScript`
+- `Tailwind CSS`
+- `FakeStore API`
+
+## Run The Project
 
 ```bash
-# npm
+### 1. Install dependencies
+
 npm install
 
-# pnpm
-pnpm install
+### 2. Start development server
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
 
-# pnpm
-pnpm dev
+### 3. Open in browser
 
-# yarn
-yarn dev
+http://localhost:3000
 
-# bun
-bun run dev
-```
+## Build For Production
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
 npm run build
 
-# pnpm
-pnpm build
+## Notes
 
-# yarn
-yarn build
+- Product data is fetched from `FakeStore API`
+- Filtering, searching, and sorting are handled client-side
+- Product detail page uses SSR-friendly data fetching
+- The project uses Nuxt's `app/` directory structure
 
-# bun
-bun run build
-```
+## API
 
-Locally preview production build:
+https://fakestoreapi.com/products
 
-```bash
-# npm
-npm run preview
+## Purpose
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+This project was built as a front-end technical assessment with focus on clean structure, responsive UI, and practical state management.
