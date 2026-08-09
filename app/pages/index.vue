@@ -45,7 +45,7 @@ await fetchProducts();
         </div>
       </section>
 
-      <section v-else class="grid grid-cols-2 gap-4 lg:grid-cols-[268px_minmax(0,1fr)] lg:gap-6">
+      <section v-else class="relative grid gap-4 md:grid-cols-[268px_minmax(0,1fr)] lg:gap-6 pt-8">
         <ProductSidebar v-model:filters="filters" :category-options="categoryOptions" />
 
         <div>

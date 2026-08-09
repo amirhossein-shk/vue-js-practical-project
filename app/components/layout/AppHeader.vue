@@ -1,165 +1,97 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import BookIcon from '~/components/layout/icons/BookIcon.vue';
+import HomeIcon from '~/components/layout/icons/HomeIcon.vue';
+import PhoneIcon from '~/components/layout/icons/PhoneIcon.vue';
+import QuestionIcon from '~/components/layout/icons/QuestionIcon.vue';
+
+const isMenuOpen = ref(false);
+
+const menu = computed(() => [
+  { link: '/', label: 'لیست محصولات', icon: HomeIcon },
+  { link: '#', label: 'دریافت مشاوره', icon: BookIcon },
+  { link: '#', label: 'سوالات متداول', icon: QuestionIcon },
+  { link: '#', label: 'تماس با ما', icon: PhoneIcon },
+]);
+</script>
+
 <template>
   <header class="sticky top-0 z-50 w-full border-b border-slate-100 bg-white shadow-sm">
     <div
-      class="mx-auto flex h-20 max-w-[1520px] items-center justify-center px-4 sm:px-6 lg:px-10 relative"
+      class="mx-auto flex h-20 max-w-[1520px] items-center justify-between lg:justify-center px-4 sm:px-6 lg:px-10 relative"
     >
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-700 md:hidden"
+        @click="isMenuOpen = !isMenuOpen"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M4 7h16M4 12h16M4 17h16"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+
+      <Teleport to="body">
+        <transition name="fade">
+          <div
+            v-if="isMenuOpen"
+            class="fixed inset-0 z-40 bg-slate-950/40 lg:hidden"
+            @click="isMenuOpen = false"
+          />
+        </transition>
+
+        <transition name="slide-panel">
+          <aside
+            v-if="isMenuOpen"
+            class="fixed inset-y-0 right-0 z-50 w-[82vw] max-w-[300px] bg-white p-5 shadow-xl lg:hidden"
+            dir="rtl"
+          >
+            <div class="mb-6 flex items-center justify-between">
+              <span class="text-sm text-slate-900">منو</span>
+              <button
+                type="button"
+                class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-600"
+                @click="isMenuOpen = false"
+              >
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M6 6l12 12M18 6L6 18"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <nav class="flex flex-col gap-6">
+              <NuxtLink
+                v-for="item in menu"
+                :key="item.label"
+                :to="item.link"
+                class="text-sm font-medium text-slate-600 transition hover:text-pink-600 flex items-center gap-2"
+              >
+                <div><component :is="item.icon" /></div>
+                <div>{{ item.label }}</div>
+              </NuxtLink>
+            </nav>
+          </aside>
+        </transition>
+      </Teleport>
+
       <div class="flex items-center gap-8">
-        <nav class="hidden gap-6 lg:flex">
+        <nav class="hidden gap-6 md:flex">
           <NuxtLink
-            to="/"
+            v-for="item in menu"
+            :key="item.label"
+            :to="item.link"
             class="text-sm font-medium text-slate-600 transition hover:text-pink-600 flex items-center gap-2"
           >
-            <div>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.3335 6.66665H12.6668C14.0002 6.66665 14.6668 5.99998 14.6668 4.66665V3.33331C14.6668 1.99998 14.0002 1.33331 12.6668 1.33331H11.3335C10.0002 1.33331 9.3335 1.99998 9.3335 3.33331V4.66665C9.3335 5.99998 10.0002 6.66665 11.3335 6.66665Z"
-                  stroke="#0A2A51"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M3.3335 14.6666H4.66683C6.00016 14.6666 6.66683 14 6.66683 12.6666V11.3333C6.66683 9.99998 6.00016 9.33331 4.66683 9.33331H3.3335C2.00016 9.33331 1.3335 9.99998 1.3335 11.3333V12.6666C1.3335 14 2.00016 14.6666 3.3335 14.6666Z"
-                  stroke="#0A2A51"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M4.00016 6.66665C5.47292 6.66665 6.66683 5.47274 6.66683 3.99998C6.66683 2.52722 5.47292 1.33331 4.00016 1.33331C2.5274 1.33331 1.3335 2.52722 1.3335 3.99998C1.3335 5.47274 2.5274 6.66665 4.00016 6.66665Z"
-                  stroke="#0A2A51"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M12.0002 14.6666C13.4729 14.6666 14.6668 13.4727 14.6668 12C14.6668 10.5272 13.4729 9.33331 12.0002 9.33331C10.5274 9.33331 9.3335 10.5272 9.3335 12C9.3335 13.4727 10.5274 14.6666 12.0002 14.6666Z"
-                  stroke="#0A2A51"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <div>لیست محصولات</div>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/#"
-            class="text-sm font-medium text-slate-600 transition hover:text-pink-600 flex items-center gap-2"
-          >
-            <div>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.6666 11.16V3.11336C14.6666 2.31336 14.0133 1.72002 13.2199 1.78669H13.1799C11.7799 1.90669 9.65325 2.62002 8.46659 3.36669L8.35325 3.44002C8.15992 3.56002 7.83992 3.56002 7.64659 3.44002L7.47992 3.34002C6.29325 2.60002 4.17325 1.89336 2.77325 1.78002C1.97992 1.71336 1.33325 2.31336 1.33325 3.10669V11.16C1.33325 11.8 1.85325 12.4 2.49325 12.48L2.68659 12.5067C4.13325 12.7 6.36659 13.4334 7.64659 14.1334L7.67325 14.1467C7.85325 14.2467 8.13992 14.2467 8.31325 14.1467C9.59325 13.44 11.8333 12.7 13.2866 12.5067L13.5066 12.48C14.1466 12.4 14.6666 11.8 14.6666 11.16Z"
-                  stroke="#0A2A51"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M8 3.65997V13.66"
-                  stroke="#0A2A51"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M5.16675 5.65997H3.66675"
-                  stroke="#0A2A51"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M5.66675 7.65997H3.66675"
-                  stroke="#292D32"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <div>دریافت مشاوره</div>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/#"
-            class="text-sm font-medium text-slate-600 transition hover:text-pink-600 flex items-center gap-2"
-          >
-            <div>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.3333 12.2867H8.66659L5.69991 14.26C5.25991 14.5533 4.66659 14.24 4.66659 13.7067V12.2867C2.66659 12.2867 1.33325 10.9534 1.33325 8.95337V4.95333C1.33325 2.95333 2.66659 1.62 4.66659 1.62H11.3333C13.3333 1.62 14.6666 2.95333 14.6666 4.95333V8.95337C14.6666 10.9534 13.3333 12.2867 11.3333 12.2867Z"
-                  stroke="#0A2A51"
-                  stroke-width="1.2"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M7.99996 7.5733V7.43333C7.99996 6.98 8.27998 6.73998 8.55998 6.54665C8.83331 6.35998 9.10661 6.11999 9.10661 5.67999C9.10661 5.06666 8.61329 4.5733 7.99996 4.5733C7.38663 4.5733 6.89331 5.06666 6.89331 5.67999"
-                  stroke="#0A2A51"
-                  stroke-width="1.2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M7.99708 9.16665H8.00308"
-                  stroke="#0A2A51"
-                  stroke-width="1.2"
-                  stroke-linecap="square"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <div>سوالات متداول</div>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/#"
-            class="text-sm font-medium text-slate-600 transition hover:text-pink-600 flex items-center gap-2"
-          >
-            <div>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.6667 11.28V13.28C14.6675 13.4657 14.6294 13.6494 14.555 13.8195C14.4807 13.9897 14.3716 14.1424 14.2348 14.2679C14.0979 14.3934 13.9364 14.489 13.7605 14.5485C13.5847 14.6079 13.3983 14.63 13.2134 14.6133C11.1619 14.3904 9.19137 13.6894 7.46004 12.5667C5.84926 11.5431 4.48359 10.1774 3.46004 8.56665C2.33336 6.82745 1.6322 4.84731 1.41337 2.78665C1.39671 2.60229 1.41862 2.41649 1.4777 2.24107C1.53679 2.06564 1.63175 1.90444 1.75655 1.76773C1.88134 1.63102 2.03324 1.52179 2.20256 1.447C2.37189 1.37221 2.55493 1.33349 2.74004 1.33332H4.74004C5.06357 1.33013 5.37723 1.4447 5.62254 1.65567C5.86786 1.86664 6.02809 2.15961 6.07337 2.47998C6.15779 3.12003 6.31434 3.74847 6.54004 4.35332C6.62973 4.59193 6.64915 4.85126 6.59597 5.10057C6.5428 5.34988 6.41928 5.57872 6.24004 5.75998L5.39337 6.60665C6.34241 8.27568 7.72434 9.65761 9.39337 10.6067L10.24 9.75998C10.4213 9.58074 10.6501 9.45722 10.8994 9.40405C11.1488 9.35088 11.4081 9.37029 11.6467 9.45998C12.2516 9.68568 12.88 9.84224 13.52 9.92665C13.8439 9.97234 14.1396 10.1355 14.3511 10.385C14.5625 10.6345 14.6748 10.953 14.6667 11.28Z"
-                  stroke="#E20054"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <div>تماس با ما</div>
+            <div><component :is="item.icon" /></div>
+            <div>{{ item.label }}</div>
           </NuxtLink>
         </nav>
       </div>

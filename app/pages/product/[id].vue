@@ -89,12 +89,17 @@ const specs = computed(() => [
         <h2 class="text-xl font-bold text-slate-800 mb-6">مشخصات فنی</h2>
 
         <div class="flex flex-col gap-3">
-          <div v-for="spec in specs" :key="spec.label" class="grid grid-cols-[150px_1fr]">
-            <span class="text-gray-500 bg-gray-50 p-4 ml-3 rounded-tr-[16px] rounded-br-[16px]">{{
-              spec.label
-            }}</span>
+          <div
+            v-for="spec in specs"
+            :key="spec.label"
+            class="grid grid-cols-1 gap-3 md:gap-0 md:grid-cols-[150px_1fr]"
+          >
             <span
-              class="text-gray-700 font-[700] bg-gray-50 p-4 rounded-tl-[16px] rounded-bl-[16px]"
+              class="text-gray-500 bg-gray-50 p-4 md:ml-3 rounded-[16px] md:rounded-tr-[16px] md:rounded-br-[16px]"
+              >{{ spec.label }}</span
+            >
+            <span
+              class="text-gray-700 font-[700] bg-gray-50 p-4 rounded-[16px] md:rounded-tl-[16px] md:rounded-bl-[16px]"
               >{{ spec.value }}</span
             >
           </div>

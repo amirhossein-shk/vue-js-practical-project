@@ -2,7 +2,7 @@
 import CardBox from '~/components/common/CardBox.vue';
 import type { ProductSort } from '~~/types/product-filters.ts';
 
-const modelValue = defineModel<ProductSort>({ required: true });
+const modelValue = defineModel<ProductSort | undefined>({ required: true });
 const isOpen = ref(true);
 
 const sortOptions: Array<{ label: string; value: ProductSort }> = [
