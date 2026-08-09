@@ -1,7 +1,28 @@
-<template>
-  <section class="rounded-[12px] bg-white px-5 py-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
-    <h2 class="mb-5 text-right text-[18px] font-semibold text-slate-600">فیلتر و جستجو</h2>
+<script setup lang="ts">
+import CardBox from '~/components/common/CardBox.vue';
 
+const isOpen = ref(true);
+
+const appliedSearch = defineModel<string>({ required: true });
+
+const draftSearch = ref(appliedSearch.value);
+
+watch(appliedSearch, (value) => {
+  draftSearch.value = value;
+});
+
+const submitSearch = () => {
+  appliedSearch.value = draftSearch.value.trim();
+};
+
+const clearDraft = () => {
+  draftSearch.value = '';
+  appliedSearch.value = '';
+};
+</script>
+
+<template>
+  <card-box v-model="isOpen" title="جستجو">
     <form
       class="flex h-[40px] items-center rounded-[12px] border-[1px] border-pink-600 bg-slate-50 px-2"
       @submit.prevent="submitSearch"
@@ -55,25 +76,5 @@
     >
       جستجو
     </button>
-  </section>
+  </card-box>
 </template>
-
-<script setup lang="ts">
-const appliedSearch = defineModel<string>({ required: true });
-
-// فقط برای تایپ در input (تا زمان submit)
-const draftSearch = ref(appliedSearch.value);
-
-// اگر از بیرون مدل تغییر کرد (مثلا از ActiveFilters حذف شد)، input هم sync بشه
-watch(appliedSearch, (value) => {
-  draftSearch.value = value;
-});
-
-const submitSearch = () => {
-  appliedSearch.value = draftSearch.value.trim();
-};
-
-const clearDraft = () => {
-  draftSearch.value = '';
-};
-</script>

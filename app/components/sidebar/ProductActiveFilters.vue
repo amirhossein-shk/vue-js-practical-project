@@ -81,12 +81,6 @@ const sortLabels: Record<ProductSort, string> = {
   'price-desc': 'قیمت',
 };
 
-const categoryLabels: Record<string, string> = {
-  housing: 'مسکن و ساختمان',
-  health: 'بهداشت و درمان',
-  industrial: 'صنعتی و کارخانه',
-};
-
 const activeItems = computed<ActiveFilterItem[]>(() => {
   const items: ActiveFilterItem[] = [];
 
@@ -98,7 +92,7 @@ const activeItems = computed<ActiveFilterItem[]>(() => {
     });
   }
 
-  if (filters.value.sort !== defaultProductFilters.sort) {
+  if (filters.value.sort) {
     items.push({
       key: 'sort',
       label: sortLabels[filters.value.sort],
@@ -109,7 +103,7 @@ const activeItems = computed<ActiveFilterItem[]>(() => {
   filters.value.categories.forEach((categoryId) => {
     items.push({
       key: `category-${categoryId}`,
-      label: categoryLabels[categoryId] ?? categoryId,
+      label: categoryId,
       type: 'category',
       value: categoryId,
     });
@@ -125,7 +119,7 @@ const removeFilter = (item: ActiveFilterItem) => {
   }
 
   if (item.type === 'sort') {
-    filters.value.sort = defaultProductFilters.sort;
+    filters.value.sort = undefined;
     return;
   }
 

@@ -6,3 +6,11 @@ export interface Product {
   category: string;
   image: string;
 }
+
+export type ProductCategory = {
+  value: string;
+  label: string;
+  count: number;
+};
+
+export type ProductsCategories = Array<ProductCategory>;

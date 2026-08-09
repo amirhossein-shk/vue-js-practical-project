@@ -37,9 +37,27 @@ defineProps<{
       <div class="border-t text-center border-slate-100 pt-2">
         <NuxtLink :to="`/product/${product.id}`" class="block">
           <button
-            class="text-sm font-bold text-[#E20054] text-center border-[1px] border-gray-100 w-full py-3 rounded-[16px]"
+            class="flex justify-center items-center gap-2 text-sm font-bold text-[#E20054] text-center border-[1px] border-gray-100 w-full py-3 rounded-[16px]"
           >
-            مشاهده جزئیات
+            <div>مشاهده جزئیات</div>
+            <div>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.99998 13.28L5.65331 8.9333C5.13998 8.41997 5.13998 7.57997 5.65331 7.06664L9.99998 2.71997"
+                  stroke="#E20054"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
           </button>
         </NuxtLink>
       </div>

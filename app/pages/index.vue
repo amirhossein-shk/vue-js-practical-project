@@ -7,7 +7,7 @@ import { defaultProductFilters } from '~~/types/product-filters.ts';
 
 const filters = ref(defaultProductFilters);
 
-const { products, loading, error, fetchProducts } = useProducts({
+const { products, loading, error, categoryOptions, fetchProducts } = useProducts({
   filters,
 });
 await fetchProducts();
@@ -46,7 +46,7 @@ await fetchProducts();
       </section>
 
       <section v-else class="grid grid-cols-2 gap-4 lg:grid-cols-[268px_minmax(0,1fr)] lg:gap-6">
-        <ProductSidebar v-model:filters="filters" />
+        <ProductSidebar v-model:filters="filters" :category-options="categoryOptions" />
 
         <div>
           <ProductActiveFilters v-model="filters" class="mb-4" />
