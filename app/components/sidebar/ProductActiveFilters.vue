@@ -75,6 +75,8 @@ const filters = defineModel<ProductFilters>({ required: true });
 const sortLabels: Record<ProductSort, string> = {
   'price-asc': 'قیمت',
   'price-desc': 'قیمت',
+  'rating-asc': 'امتیاز',
+  'rating-desc': 'امتیاز',
 };
 
 const activeItems = computed<ActiveFilterItem[]>(() => {

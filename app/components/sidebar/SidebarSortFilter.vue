@@ -8,6 +8,8 @@ const isOpen = ref(true);
 const sortOptions: Array<{ label: string; value: ProductSort }> = [
   { label: 'قیمت: کم به زیاد', value: 'price-asc' },
   { label: 'قیمت: زیاد به کم', value: 'price-desc' },
+  { label: 'امتیاز: کم به زیاد', value: 'rating-asc' },
+  { label: 'امتیاز: زیاد به کم', value: 'rating-desc' },
 ];
 </script>
 

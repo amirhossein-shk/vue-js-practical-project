@@ -1,4 +1,4 @@
-export type ProductSort = 'price-asc' | 'price-desc' | undefined;
+export type ProductSort = 'price-asc' | 'price-desc' | 'rating-asc' | 'rating-desc';
 
 export type ProductFilters = {
   search: string;

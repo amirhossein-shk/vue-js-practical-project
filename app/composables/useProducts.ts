@@ -23,8 +23,7 @@ export function useProducts(options: UseProductsOptions) {
     error.value = null;
 
     try {
-      const products = await $fetch<Product[]>(PRODUCTS_API_URL);
-      rawProducts.value = products;
+      rawProducts.value = await $fetch<Product[]>(PRODUCTS_API_URL);
       hasFetched.value = true;
     } catch {
       error.value = 'دریافت محصولات با خطا مواجه شد.';

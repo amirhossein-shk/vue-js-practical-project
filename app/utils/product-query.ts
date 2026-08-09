@@ -29,6 +29,12 @@ export function sortProducts(products: Product[], sort: ProductFilters['sort']):
       case 'price-desc':
         return secondProduct.price - firstProduct.price;
 
+      case 'rating-asc':
+        return firstProduct.rating.rate - secondProduct.rating.rate;
+
+      case 'rating-desc':
+        return secondProduct.rating.rate - firstProduct.rating.rate;
+
       default:
         return 0;
     }

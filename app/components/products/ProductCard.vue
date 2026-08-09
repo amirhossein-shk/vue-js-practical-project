@@ -34,6 +34,10 @@ defineProps<{
         <span class="text-sm font-bold text-pink-600"> ${{ product.price }} </span>
       </div>
 
+      <div class="flex items-center justify-between py-2">
+        <span class="text-xs text-slate-500"> ⭐ {{ product.rating.rate }} / 5 </span>
+      </div>
+
       <div class="border-t text-center border-slate-100 pt-2">
         <NuxtLink :to="`/product/${product.id}`" class="block">
           <button
