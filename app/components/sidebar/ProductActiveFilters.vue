@@ -70,7 +70,13 @@ type ActiveFilterItem = {
   value?: string;
 };
 
-const filters = defineModel<ProductFilters>({ required: true });
+const props = defineProps<{
+  filters: ProductFilters;
+}>();
+
+const emit = defineEmits<{
+  'update-filters': [patch: Partial<ProductFilters>];
+}>();
 
 const sortLabels: Record<ProductSort, string> = {
   'price-asc': 'قیمت',
@@ -78,27 +84,30 @@ const sortLabels: Record<ProductSort, string> = {
   'rating-asc': 'امتیاز',
   'rating-desc': 'امتیاز',
 };
-
+console.log(props.filters);
 const activeItems = computed<ActiveFilterItem[]>(() => {
   const items: ActiveFilterItem[] = [];
+  const filters = props.filters;
 
-  if (filters.value.search) {
+  if (!filters) return items;
+
+  if (filters.search) {
     items.push({
       key: 'search',
-      label: filters.value.search,
+      label: filters.search,
       type: 'search',
     });
   }
 
-  if (filters.value.sort) {
+  if (filters.sort) {
     items.push({
       key: 'sort',
-      label: sortLabels[filters.value.sort],
+      label: sortLabels[filters.sort],
       type: 'sort',
     });
   }
 
-  filters.value.categories.forEach((categoryId) => {
+  filters.categories.forEach((categoryId) => {
     items.push({
       key: `category-${categoryId}`,
       label: categoryId,
@@ -110,21 +119,21 @@ const activeItems = computed<ActiveFilterItem[]>(() => {
   return items;
 });
 
-const removeFilter = (item: ActiveFilterItem) => {
+function removeFilter(item: ActiveFilterItem) {
   if (item.type === 'search') {
-    filters.value.search = '';
+    emit('update-filters', { search: '' });
     return;
   }
 
   if (item.type === 'sort') {
-    filters.value.sort = undefined;
+    emit('update-filters', { sort: undefined });
     return;
   }
 
   if (item.type === 'category' && item.value) {
-    filters.value.categories = filters.value.categories.filter(
-      (categoryId) => categoryId !== item.value
-    );
+    emit('update-filters', {
+      categories: props.filters.categories.filter((categoryId) => categoryId !== item.value),
+    });
   }
-};
+}
 </script>

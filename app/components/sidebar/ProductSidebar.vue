@@ -1,13 +1,29 @@
 <script setup lang="ts">
 import type { ProductsCategories } from '~~/types/product.ts';
-import type { ProductFilters } from '~~/types/product-filters.ts';
+import type { ProductFilters, ProductSort } from '~~/types/product-filters.ts';
 
-const filters = defineModel<ProductFilters>('filters', { required: true });
+const isFiltersOpen = ref(false);
 
 defineProps<{
+  filters: ProductFilters;
   categoryOptions: ProductsCategories;
 }>();
-const isFiltersOpen = ref(false);
+
+const emit = defineEmits<{
+  'update-filters': [patch: Partial<ProductFilters>];
+}>();
+
+function updateSearch(value: string) {
+  emit('update-filters', { search: value });
+}
+
+function updateSort(value: ProductSort | undefined) {
+  emit('update-filters', { sort: value });
+}
+
+function updateCategories(value: string[]) {
+  emit('update-filters', { categories: value });
+}
 </script>
 
 <template>
@@ -39,10 +55,14 @@ const isFiltersOpen = ref(false);
         : 'hidden'
     "
   >
-    <SidebarSearchFilter v-model="filters.search" />
+    <SidebarSearchFilter :model-value="filters.search" @update:model-value="updateSearch" />
 
-    <SidebarSortFilter v-model="filters.sort" />
+    <SidebarSortFilter :model-value="filters.sort" @update:model-value="updateSort" />
 
-    <SidebarCategoryFilter v-model="filters.categories" :category-options="categoryOptions" />
+    <SidebarCategoryFilter
+      :model-value="filters.categories"
+      :category-options="categoryOptions"
+      @update:model-value="updateCategories"
+    />
   </aside>
 </template>

@@ -9,41 +9,29 @@ interface UseProductsOptions {
 }
 
 export function useProducts(options: UseProductsOptions) {
-  const rawProducts = useState<Product[]>('products-raw-data', () => []);
+  const {
+    data: rawProducts,
+    pending: loading,
+    error: fetchError,
+    refresh,
+  } = useAsyncData<Product[]>('products-raw-data', () => $fetch<Product[]>(PRODUCTS_API_URL), {
+    default: () => [],
+  });
 
-  const hasFetched = useState<boolean>('products-has-fetched', () => false);
-
-  const loading = ref(false);
-  const error = ref<string | null>(null);
-
-  async function fetchProducts() {
-    if (hasFetched.value) return;
-
-    loading.value = true;
-    error.value = null;
-
-    try {
-      rawProducts.value = await $fetch<Product[]>(PRODUCTS_API_URL);
-      hasFetched.value = true;
-    } catch {
-      error.value = 'دریافت محصولات با خطا مواجه شد.';
-    } finally {
-      loading.value = false;
-    }
-  }
+  const error = computed(() => (fetchError.value ? 'دریافت محصولات با خطا مواجه شد.' : null));
 
   const products = computed(() => {
-    return queryProducts(rawProducts.value, options.filters.value);
+    return queryProducts(rawProducts.value ?? [], options.filters.value);
   });
 
   const totalProducts = computed(() => products.value.length);
 
   const categories = computed(() => {
-    return [...new Set(rawProducts.value.map((product) => product.category))];
+    return [...new Set((rawProducts.value ?? []).map((product) => product.category))];
   });
 
   const categoryCounts = computed<Record<string, number>>(() => {
-    return rawProducts.value.reduce<Record<string, number>>((counts, product) => {
+    return (rawProducts.value ?? []).reduce<Record<string, number>>((counts, product) => {
       counts[product.category] = (counts[product.category] ?? 0) + 1;
       return counts;
     }, {});
@@ -58,14 +46,14 @@ export function useProducts(options: UseProductsOptions) {
   });
 
   return {
-    products,
     rawProducts,
+    products,
     totalProducts,
     categories,
     categoryCounts,
     categoryOptions,
     loading,
     error,
-    fetchProducts,
+    refresh,
   };
 }

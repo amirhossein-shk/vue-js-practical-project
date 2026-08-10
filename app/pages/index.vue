@@ -2,15 +2,11 @@
 import ProductCard from '~/components/products/ProductCard.vue';
 import ProductActiveFilters from '~/components/sidebar/ProductActiveFilters.vue';
 import ProductSidebar from '~/components/sidebar/ProductSidebar.vue';
+import { useProductFilters } from '~/composables/useProductFilters.ts';
 import { useProducts } from '~/composables/useProducts';
-import { defaultProductFilters } from '~~/types/product-filters.ts';
 
-const filters = ref(defaultProductFilters);
-
-const { products, loading, error, categoryOptions, fetchProducts } = useProducts({
-  filters,
-});
-await fetchProducts();
+const { filters, updateFilters } = useProductFilters();
+const { products, categoryOptions, loading, error } = useProducts({ filters });
 </script>
 
 <template>
@@ -46,10 +42,14 @@ await fetchProducts();
       </section>
 
       <section v-else class="relative grid gap-4 md:grid-cols-[268px_minmax(0,1fr)] lg:gap-6 pt-8">
-        <ProductSidebar v-model:filters="filters" :category-options="categoryOptions" />
+        <ProductSidebar
+          :filters="filters"
+          :category-options="categoryOptions"
+          @update-filters="updateFilters"
+        />
 
         <div>
-          <ProductActiveFilters v-model="filters" class="mb-4" />
+          <ProductActiveFilters :filters="filters" class="mb-4" @update-filters="updateFilters" />
 
           <div
             v-if="error"
