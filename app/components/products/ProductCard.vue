@@ -39,7 +39,7 @@ defineProps<{
       </div>
 
       <div class="border-t text-center border-slate-100 pt-2">
-        <NuxtLink :to="`/product/${product.id}`" class="block">
+        <NuxtLink :to="`/products/${product.id}`" class="block">
           <button
             class="flex justify-center items-center gap-2 text-sm font-bold text-[#E20054] text-center border-[1px] border-gray-100 w-full py-3 rounded-[16px]"
           >

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import BookIcon from '~/components/layout/icons/BookIcon.vue';
-import HomeIcon from '~/components/layout/icons/HomeIcon.vue';
+import MenuIcon from '~/components/layout/icons/MenuIcon.vue';
 import PhoneIcon from '~/components/layout/icons/PhoneIcon.vue';
 import QuestionIcon from '~/components/layout/icons/QuestionIcon.vue';
 
 const isMenuOpen = ref(false);
 
 const menu = computed(() => [
-  { link: '/', label: 'لیست محصولات', icon: HomeIcon },
+  { link: '/', label: 'لیست محصولات', icon: MenuIcon },
   { link: '#', label: 'دریافت مشاوره', icon: BookIcon },
   { link: '#', label: 'سوالات متداول', icon: QuestionIcon },
   { link: '#', label: 'تماس با ما', icon: PhoneIcon },

@@ -84,7 +84,7 @@ const sortLabels: Record<ProductSort, string> = {
   'rating-asc': 'امتیاز',
   'rating-desc': 'امتیاز',
 };
-console.log(props.filters);
+
 const activeItems = computed<ActiveFilterItem[]>(() => {
   const items: ActiveFilterItem[] = [];
   const filters = props.filters;
